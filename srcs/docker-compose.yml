@@ -1,0 +1,19 @@
+# srcs/docker-compose.yml
+
+services:
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    networks:
+      - my_network
+    # Expose port 443 for HTTPS
+    ports:
+      - "443:443"
+    environment:
+      DOMAIN_NAME: aasselma.42.fr  # Environment variable for the domain name
+    volumes:
+      - /home/yuxev/inception/srcs/requirements/nginx/project:/var/www/html  # Mount host directory to container
+      - /home/yuxev/inception/srcs/requirements/nginx/conf/certs:/etc/nginx/certs  # Mount certs directory
+networks:
+  my_network:
+    driver: bridge
